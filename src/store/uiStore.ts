@@ -10,16 +10,17 @@ interface UiState {
 }
 
 interface MediaState{
-	id:number
+	idImagenVideo:number
 	title:string
 	description:string
-	url:string
+	location:string
 }
+
 interface Media{
-	id:number
+	idImagenVideo:number
 	title:string
 	description:string	
-	url:string
+	location:string
 	setStateMedia: (newState:MediaState) => void
 	defaultMedia:()=>void
 }
@@ -36,11 +37,11 @@ export const useUiStore = create<UiState>((set) => ({
 
 
 export const useMedia = create<Media>((set)=>({
-	id:0,
+	idImagenVideo:0,
 	title:'',
 	description:'',
-	url:'',
+	location:'',
 	setStateMedia:(newState) =>set(newState),
-	defaultMedia:() =>set(state=>({id:0,title:'',description:'',url:''})),
+	defaultMedia:() =>set(state=>({idImagenVideo:0,title:'',description:'',location:''})),
 
 }))

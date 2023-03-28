@@ -1,6 +1,7 @@
 export interface Media{
-    id:number
+    idImagenVideo:number
     title:string
     description:string
-    url:string
+    location:string
+    state:boolean
 }

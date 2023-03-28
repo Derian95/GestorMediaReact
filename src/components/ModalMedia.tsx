@@ -5,6 +5,7 @@ import {ModalContainer} from './ModalContainer'
 
 import noImage from '../assets/noImg.png'
 import axios from 'axios'
+import { basePath } from './MediaList'
 
 interface FormData {
 	titulo: string
@@ -14,7 +15,7 @@ interface FormData {
 }
 
 export const ModalMedia = () => {
-	const {id, title, description, url} = useMedia()
+	const {idImagenVideo, title, description, location} = useMedia()
 	const {showModal, closeModal, isEdit} = useUiStore()
 
 	const {register, handleSubmit, formState, setValue,reset} = useForm<FormData>()
@@ -24,12 +25,12 @@ export const ModalMedia = () => {
         sendData.append('title',data.titulo) 
         sendData.append('description',data.descripcion) 
         if (data?.imagen?.[0]) {
-            sendData.append('image', data.imagen[0]);
+            sendData.append('Imagefile', data.imagen[0]);
           }
           postMediaData(sendData)
 	}
     const postMediaData=async(infoMedia:any) => {
-        const response = await axios.post('http://localhost:145/sgc/addMedia',infoMedia)
+        const response = await axios.post('http://localhost:801/sgc/addMedia',infoMedia)
         const result = response.data
         console.log(result)
       }
@@ -39,7 +40,7 @@ export const ModalMedia = () => {
 		if (isEdit == true) {
 			setValue('titulo', title)
 			setValue('descripcion', description)
-			setValue('imagenData', url)
+			setValue('imagenData', location)
 			setValue('imagen', undefined)
 		} else {
 			setValue('titulo', '')
@@ -47,7 +48,7 @@ export const ModalMedia = () => {
 			setValue('imagenData', '')
 			setValue('imagen', undefined)
 		}
-	}, [id])
+	}, [idImagenVideo])
 
 	return (
 		<ModalContainer>
@@ -91,7 +92,7 @@ export const ModalMedia = () => {
 					</div>
 					<div className='bg-input flex flex-col items-center mb-4'>
 						<img
-							src={url==''?noImage:url}
+							src={location==''?noImage:basePath+location}
 							alt=''
 							width={150}
 							height={100}
