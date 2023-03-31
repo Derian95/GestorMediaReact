@@ -6,6 +6,7 @@ import {ModalContainer} from './ModalContainer'
 import noImage from '../assets/noImg.png'
 import axios from 'axios'
 import { basePath } from './MediaList'
+import  { mutate } from 'swr'
 
 interface FormData {
 	titulo: string
@@ -22,17 +23,38 @@ export const ModalMedia = () => {
 
 	const onSubmit: SubmitHandler<FormData> = (data) => {
         let sendData = new FormData()
-        sendData.append('title',data.titulo) 
-        sendData.append('description',data.descripcion) 
-        if (data?.imagen?.[0]) {
-            sendData.append('Imagefile', data.imagen[0]);
-          }
-          postMediaData(sendData)
-	}
+		
+		sendData.append('IdImagenVideo',idImagenVideo.toString())
+		sendData.append('title',data.titulo) 
+		sendData.append('description',data.descripcion) 
+		if(data?.imagen?.[0]){
+			sendData.append('Imagefile', data.imagen[0]);
+		}
+		if(idImagenVideo!=0){
+			editMediaData(sendData)
+			
+		}else{
+			postMediaData(sendData)
+		}
+        
+		setValue('titulo', '')
+		setValue('descripcion', '')
+		setValue('imagenData', '')
+		setValue('imagen', undefined) 
+		}
+
     const postMediaData=async(infoMedia:any) => {
-        const response = await axios.post('http://localhost:801/sgc/addMedia',infoMedia)
+        const response = await axios.post('http://localhost:3005/apiGestor/Sgc/addMedia',infoMedia)
+        const result = response.data
+        console.log(infoMedia)
+		closeModal()
+      }
+
+	  const editMediaData=async(infoMedia:any) => {
+        const response = await axios.put('http://localhost:3005/apiGestor/Sgc/updateMedia',infoMedia)
         const result = response.data
         console.log(result)
+		closeModal()
       }
 
 	useEffect(() => {

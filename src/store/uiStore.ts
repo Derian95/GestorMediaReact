@@ -1,4 +1,5 @@
 import {create} from 'zustand'
+import {StateStorage} from 'zustand/middleware'
 
 interface UiState {
 	showModal: boolean

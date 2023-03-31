@@ -6,6 +6,10 @@ import 'react-slideshow-image/dist/styles.css'
 import 'react-slideshow-image/dist/styles.css'
 
 import video from '../assets/videoTest.mp4'
+import { getDataMedia, getDataMediaTest } from '../api'
+import { Media } from '../interfaces'
+import { basePath } from '../components'
+import useSWR from 'swr'
 
 const slides = [
 	{
@@ -34,11 +38,20 @@ const slides = [
 	},
 ]
 export const SliderAdvertising = () => {
+	
 	const [count, setCount] = useState(true)
 	const [playingIndex, setPlayingIndex] = useState(0)
+	//const [images, setImages] = useState<Media[]>([])
+
+
+	const { data: dataMedia, isLoading } = useSWR<Media[]>(basePath + 'sgc/media', getDataMediaTest, { revalidateOnMount: true})
+
 	const handleSlideChange = (oldIndex: number, newIndex: number) => {
-		setCount(!isVideo(slides[newIndex].url))
+		if(dataMedia)
+		{
+		setCount(!isVideo(dataMedia[newIndex].location))
 		setPlayingIndex(newIndex)
+		}
 	}
 
 	const isVideo = (url: string) => {
@@ -54,27 +67,30 @@ export const SliderAdvertising = () => {
 		console.log('se cambio')
 	}
 
-	useEffect(() => {
-		if (isVideo(slides[0].url)) {
+	if(dataMedia){
+		if(isVideo(dataMedia[0].location)){
 			setCount(false)
 		}
-	}, [])
+	}
+	
+	if (isLoading) { return <p>Carganding</p> }
 
 	return (
-		<div className='App'>
 			<Fade
 				autoplay={count}
 				easing='ease'
-				duration={100}
+				duration={1000}
 				indicators
 				onChange={handleSlideChange}>
-				{slides.map((url, index) => {
-					if (isVideo(url.url)) {
+				{
+				dataMedia ?
+				(dataMedia.map((url, index) => {
+					if (isVideo(url.location)) {
 						return (
 							<div key={index} className='each-slide-effect'>
-								<div className=' w-[100vw] h-[100vh]'>
+								<div className=' w-[100vw] h-[100vh] '>
 									<ReactPlayer
-										url={url.url}
+										url={basePath+url.location}
 										playing={index === playingIndex}
 										muted={true}
 										onEnded={ra}
@@ -88,17 +104,20 @@ export const SliderAdvertising = () => {
 						return (
 							<div key={index} className='each-slide-effect'>
 								<div
-									className='h-[100vh] w-[100vw]'
+									className='h-[100vh] w-[100vw] '
 									style={{
-										backgroundImage: `url(${url.url})`,
+										backgroundImage: `url(${basePath+url.location}) `,
+										backgroundRepeat:"no-repeat",
+										backgroundSize:"contain"
 									}}>
-									dd
 								</div>
 							</div>
 						)
 					}
-				})}
+				})):<p>No hay data causa</p>
+			}
 			</Fade>
-		</div>
 	)
 }
+
+
