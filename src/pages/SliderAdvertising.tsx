@@ -10,6 +10,7 @@ import { Media } from '../interfaces'
 import { basePath } from '../components'
 import useSWR from 'swr'
 import {ForwardIcon, BackwardIcon, ArrowsPointingOutIcon, Cog6ToothIcon} from '@heroicons/react/24/outline'
+import { Link } from 'react-router-dom'
 
 
 export const SliderAdvertising = () => {
@@ -59,7 +60,16 @@ export const SliderAdvertising = () => {
 			}
 		}
 	}, [dataMedia])
-	const indicators = (index:number) => (<div className="indicator  ">{index + 1}</div>);
+	const indicators = (index:number) => (<div className="indicator  "></div>)
+
+	const screenSize=() => {
+	  
+	}
+
+	const configSgc=() => {
+	  
+	}
+
 	if (isLoading) { return <p>Carganding</p> }
 
 	return (
@@ -69,13 +79,13 @@ export const SliderAdvertising = () => {
 				autoplay={sliderSleep}
 				easing='ease'
 				duration={1000}
-				indicators={indicators}
+				indicators
 				onChange={handleSlideChange}
 				prevArrow={
-				<div style={{position:'absolute', bottom:0,right:'10% !important',backgroundColor:'red',width:'30px'}} className={`${showButton?'opacity-100':'opacity-0'} duration-500`}>
+				<div style={{position:'absolute', bottom:0,right:'3%',left:'auto',backgroundColor:'#bd2e2e',width:'40px',borderRadius:'5px'}} className={`${showButton?'opacity-100':'opacity-0'} duration-500`}>
 					<BackwardIcon color='white'/>
 				</div>}
-				nextArrow={<div style={{position:'absolute', bottom:0,right:0,backgroundColor:'blue',width:'30px'}} className={`${showButton?'opacity-100':'opacity-0'} duration-500`}>
+				nextArrow={<div style={{position:'absolute', bottom:0,right:0,backgroundColor:'#bd2e2e',width:'40px',borderRadius:'5px'}} className={`${showButton?'opacity-100':'opacity-0'} duration-500`}>
 					<ForwardIcon color='white'/>
 				</div>}
 				
@@ -115,12 +125,12 @@ export const SliderAdvertising = () => {
 				})):<p>No hay data causa</p>
 			}
 			</Zoom>
-			<div className={` ${showButton?'opacity-100':'opacity-0'} cursor-pointer w-6 h-6 right-[80px] bottom-0 bg-error absolute z-50 duration-500`}>
-				<ArrowsPointingOutIcon color='white'/>
+			<div className={` ${showButton?'opacity-100':'opacity-0'} rounded-[5px] cursor-pointer w-10 h-10 right-[6%] bottom-0 bg-[#bd2e2e] absolute z-50 duration-500`}>
+				<ArrowsPointingOutIcon color='white' onClick={screenSize}/>
 			</div>
-			<div className={`${showButton?'opacity-100':'opacity-0'} cursor-pointer w-6 h-6 right-[120px] bottom-0 bg-error absolute z-50 duration-500`}>
-				<Cog6ToothIcon color='white'/>
-			</div>
+			<Link to="/sgc" target="_blank" className={`${showButton?'opacity-100':'opacity-0'} rounded-[5px] cursor-pointer w-10 h-10 right-[9%] bottom-0 bg-[#bd2e2e] absolute z-50 duration-500`}>
+				<Cog6ToothIcon color='white' onClick={configSgc}/>
+			</Link>
 		</div>
 			
 	)

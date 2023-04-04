@@ -2,11 +2,11 @@ import { ModalMedia } from '../components/ModalMedia'
 import {useMedia, useUiStore} from '../store/uiStore'
 import {MediaList} from '../components/MediaList'
 import { PlusCircleIcon } from '@heroicons/react/24/solid'
+import { useState } from 'react'
 
 export const Advertising= () => {
 	const {openModal, isEditOff} = useUiStore()
     const {defaultMedia} =useMedia()
-
     const showModal=() => {
         isEditOff()
         defaultMedia()
@@ -21,6 +21,7 @@ export const Advertising= () => {
 				Agregar publicidad
 				</button>
 			</div>
+		
             <MediaList/>
 		</div>
 	)

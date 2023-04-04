@@ -73,6 +73,9 @@ transition: all .5s ease;
 .indicator{
   background-color: orange;
 margin-left: 4px;
+width:10px;
+height:10px;
+border-radius:100%;
 }
 .indicators{
   position: absolute;
@@ -81,4 +84,5 @@ margin-left: 4px;
   left: 0;
   margin: auto;
   z-index: 40;
+
 }
