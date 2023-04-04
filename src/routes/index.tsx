@@ -1,6 +1,7 @@
 import {createBrowserRouter} from 'react-router-dom'
 
-import {Sgc,SliderAdvertising} from '../pages'
+import {Advertising,SliderAdvertising} from '../pages'
+import { LayoutSgc } from '../layouts/LayoutSgc'
 export const route = createBrowserRouter([
 	{
 		path: '/',
@@ -9,7 +10,13 @@ export const route = createBrowserRouter([
 	},
 	{
 		path: '/sgc',
-		element: <Sgc />,
+		element: <LayoutSgc />,
+		children:[
+			{
+				path: '/sgc',
+				element: <Advertising />,
+			},
+		]
 	},
 	
 ])

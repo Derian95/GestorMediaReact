@@ -1,55 +1,28 @@
-import {useEffect, useState} from 'react'
-import {Fade} from 'react-slideshow-image'
+import { useEffect, useState} from 'react'
+import {Fade, Zoom} from 'react-slideshow-image'
 import ReactPlayer from 'react-player'
 
 import 'react-slideshow-image/dist/styles.css'
 import 'react-slideshow-image/dist/styles.css'
 
-import video from '../assets/videoTest.mp4'
-import { getDataMedia, getDataMediaTest } from '../api'
+import { getDataMedia, mediaList } from '../api'
 import { Media } from '../interfaces'
 import { basePath } from '../components'
 import useSWR from 'swr'
+import {ForwardIcon, BackwardIcon, ArrowsPointingOutIcon, Cog6ToothIcon} from '@heroicons/react/24/outline'
 
-const slides = [
-	{
-		type: 'image',
-		url: video,
-		title: 'Título 1',
-		description: 'Descripción 1',
-	},
-	{
-		type: 'image',
-		url: video,
-		title: 'Título 1',
-		description: 'Descripción 1',
-	},
-	{
-		type: 'video',
-		url: 'https://es.web.img3.acsta.net/newsv7/22/10/04/17/04/1095824.jpg',
-		title: 'Título 2',
-		description: 'Descripción 2',
-	},
-	{
-		type: 'image',
-		url: 'https://es.web.img3.acsta.net/newsv7/22/10/04/17/04/1095824.jpg',
-		title: 'Título 3',
-		description: 'Descripción 3',
-	},
-]
+
 export const SliderAdvertising = () => {
 	
-	const [count, setCount] = useState(true)
+	const [sliderSleep, setSliderSleep] = useState(true)
 	const [playingIndex, setPlayingIndex] = useState(0)
-	//const [images, setImages] = useState<Media[]>([])
-
-
-	const { data: dataMedia, isLoading } = useSWR<Media[]>(basePath + 'sgc/media', getDataMediaTest, { revalidateOnMount: true})
+	const [showButton, setShowButton] = useState(true)
+	const {data: dataMedia, isLoading} = useSWR<Media[]>( mediaList, getDataMedia, {revalidateOnMount: true} )
 
 	const handleSlideChange = (oldIndex: number, newIndex: number) => {
 		if(dataMedia)
 		{
-		setCount(!isVideo(dataMedia[newIndex].location))
+			setSliderSleep(!isVideo(dataMedia[newIndex].location))
 		setPlayingIndex(newIndex)
 		}
 	}
@@ -62,27 +35,52 @@ export const SliderAdvertising = () => {
 			url.includes('youtube.com')
 		)
 	}
-	const ra = (): void => {
-		setCount(true)
-		console.log('se cambio')
+	const endVideo = (): void => {
+		setSliderSleep(true)
 	}
-
-	if(dataMedia){
-		if(isVideo(dataMedia[0].location)){
-			setCount(false)
-		}
-	}
+	const handleMouseMove = () => {
+		setShowButton(true);
+	  };
 	
+	  useEffect(() => {
+		const timeoutId = setTimeout(() => {
+			setShowButton(false);
+		  }, 5000);
+	  
+		  return () => {
+			clearTimeout(timeoutId);
+		  };
+	}, [showButton])
+	
+	useEffect(() => {
+		if(dataMedia){
+			if(isVideo(dataMedia[0].location)){
+				setSliderSleep(false)
+			}
+		}
+	}, [dataMedia])
+	const indicators = (index:number) => (<div className="indicator  ">{index + 1}</div>);
 	if (isLoading) { return <p>Carganding</p> }
 
 	return (
-			<Fade
-				autoplay={count}
+		<div className='relative bg-semiBlack h-[100vh]' onMouseMove={handleMouseMove}>
+          
+			<Zoom
+				autoplay={sliderSleep}
 				easing='ease'
 				duration={1000}
-				indicators
-				onChange={handleSlideChange}>
-				{
+				indicators={indicators}
+				onChange={handleSlideChange}
+				prevArrow={
+				<div style={{position:'absolute', bottom:0,right:'10% !important',backgroundColor:'red',width:'30px'}} className={`${showButton?'opacity-100':'opacity-0'} duration-500`}>
+					<BackwardIcon color='white'/>
+				</div>}
+				nextArrow={<div style={{position:'absolute', bottom:0,right:0,backgroundColor:'blue',width:'30px'}} className={`${showButton?'opacity-100':'opacity-0'} duration-500`}>
+					<ForwardIcon color='white'/>
+				</div>}
+				
+				>
+					{
 				dataMedia ?
 				(dataMedia.map((url, index) => {
 					if (isVideo(url.location)) {
@@ -93,7 +91,7 @@ export const SliderAdvertising = () => {
 										url={basePath+url.location}
 										playing={index === playingIndex}
 										muted={true}
-										onEnded={ra}
+										onEnded={endVideo}
 										width={'100%'}
 										height={'100%'}
 									/>
@@ -116,7 +114,15 @@ export const SliderAdvertising = () => {
 					}
 				})):<p>No hay data causa</p>
 			}
-			</Fade>
+			</Zoom>
+			<div className={` ${showButton?'opacity-100':'opacity-0'} cursor-pointer w-6 h-6 right-[80px] bottom-0 bg-error absolute z-50 duration-500`}>
+				<ArrowsPointingOutIcon color='white'/>
+			</div>
+			<div className={`${showButton?'opacity-100':'opacity-0'} cursor-pointer w-6 h-6 right-[120px] bottom-0 bg-error absolute z-50 duration-500`}>
+				<Cog6ToothIcon color='white'/>
+			</div>
+		</div>
+			
 	)
 }
 

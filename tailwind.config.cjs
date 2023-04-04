@@ -9,14 +9,20 @@ module.exports = {
     colors:{
       semiBlack:'rgb(25, 28, 36)',
       black:'#000',
-      input:'#2a3038',
+      input:'#353b42',
       white:'#fff',
       primary:'#3f6ad8',
-      success:'#3ac47d',
+      success:'rgb(27, 128, 106)',
+      successG:'rgba(54, 179, 126, 0.16)',
       error:'#fc424a',
-      gray:'#6c7293',
-      danger:'#d92550',
-      info:'#16aaff'
+      gray:'#d4d2d2',
+      danger:'rgb(183, 29, 24)',
+      dargerG:'rgba(255, 86, 48, 0.16)',
+      info:'#16aaff',
+      base:'rgb(32, 101, 209)',
+      baseH:'rgb(16, 57, 150)',
+      font:'rgb(99, 115, 129)',
+      hov:'rgba(99, 115, 129, 0.08)'
 
     }
   },

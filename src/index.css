@@ -60,3 +60,25 @@
 .modalOpen{
   animation: modalOn .2s;
 }
+
+.page-container {
+    @apply md:ml-64  min-h-screen ;
+}
+
+
+.actions{
+transition: all .5s ease; 
+
+}
+.indicator{
+  background-color: orange;
+margin-left: 4px;
+}
+.indicators{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  margin: auto;
+  z-index: 40;
+}

@@ -1,2 +1,2 @@
-export * from './Sgc'
+export * from './Advertising'
 export * from './SliderAdvertising'
