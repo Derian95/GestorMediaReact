@@ -2,7 +2,7 @@ import {FC} from 'react'
 import ReactPlayer from 'react-player'
 import {Media} from '../interfaces'
 import {useMedia, useUiStore} from '../store/uiStore'
-import {isVideo} from '../utils'
+import {capitalize, isVideo} from '../utils'
 import {basePath} from './MediaList'
 import {deleteMedia, mediaList, postChangeState} from '../api'
 import {mutate} from 'swr'
@@ -66,8 +66,8 @@ export const MediaCard: FC<Props> = ({media}) => {
 				</div>
 				<div className='w-full h-[80%] flex items-center justify-between flex-col py-1 px-4 '>
 					<div className=' w-full h-auto'>
-                        <h1 className='capitalize text-xl mb-2'>{media.title}</h1>
-                        <p className='capitalize text-sm text-font'>{media.description}</p>
+                        <h1 className=' text-xl mb-2'>{capitalize(media.title)}</h1>
+                        <p className=' text-sm text-font'>{capitalize(media.description)}</p>
                     </div>
 
 					<div className='w-full flex justify-between'>

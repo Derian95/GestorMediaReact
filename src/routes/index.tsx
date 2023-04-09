@@ -4,16 +4,16 @@ import {Advertising,SliderAdvertising} from '../pages'
 import { LayoutSgc } from '../layouts/LayoutSgc'
 export const route = createBrowserRouter([
 	{
-		path: '/',
+		path: '/gestor',
 		element: <SliderAdvertising />,
 		
 	},
 	{
-		path: '/sgc',
+		path: '/gestor/sgc',
 		element: <LayoutSgc />,
 		children:[
 			{
-				path: '/sgc',
+				path: '/gestor/sgc',
 				element: <Advertising />,
 			},
 		]

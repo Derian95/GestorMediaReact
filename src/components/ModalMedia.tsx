@@ -132,7 +132,7 @@ export const ModalMedia = () => {
 	return (
 		<ModalContainer>
 			<div
-				className={` ${ showModal ? 'modalOpen' : 'm-prin-close' } w-5/6 mt-9 md:w-2/4 xl:w-4/12 bg-white shadow-2xl p-6`}>
+				className={` ${ showModal ? 'modalOpen' : 'm-prin-close' } max-h-screen overflow-scroll  w-5/6 mt-9 md:w-2/4 xl:w-4/12 bg-white shadow-2xl p-6`}>
 				<div className='flex  justify-between mb-8'>
 					<h1 className='text-2xl'>AGREGAR PUBLICIDAD</h1>
 					<div onClick={ changeImage} className='cursor-pointer text-3xl'>x</div>

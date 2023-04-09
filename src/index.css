@@ -86,3 +86,28 @@ border-radius:100%;
   z-index: 40;
 
 }
+
+
+
+.slide-text {
+ position:absolute;
+ color:white;
+ animation: text-aniamtion 1s     ease;
+ transition: all 1s;
+}
+
+@keyframes text-animation {
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
+  
+}
+
+.tblur{
+  backdrop-filter:blur(10px);
+    background-color:#00000041;
+    padding:5px 15px;
+}

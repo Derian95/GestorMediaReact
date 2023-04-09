@@ -25,10 +25,11 @@ export const MediaList = () => {
 	
 	return (
 		<>
-		 <label>
-          Buscar:
-          <input type="text" value={searchValue} onChange={handleSearchChange} />
-        </label>
+		<div className=' max-w-7xl w-5/6 mt-10'>
+		<input  type="text" value={searchValue} onChange={handleSearchChange}  placeholder='Buscar' 	className='bg-white p-2 rounded-lg border-[1px] border-[#8c8b8b] sm:w-4/12 w-full'/>
+
+		</div>
+		 
 			<div className='grid gap-7 place-items-center max-w-7xl grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 w-5/6 mt-10 py-5'>
 				{dataMedia ? (
 					filteredData?.map((media) => (

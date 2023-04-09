@@ -9,12 +9,19 @@ const BASE_PATH="http://localhost:3005/apiGestor/"
 
 
 export const mediaList= "Sgc/media"
+export const mediaListActive= "Sgc/mediaActive"
 export const updateState= "Sgc/updateStateMedia"
 
 export const getDataMedia=async() => {
   
     const response = await mediaApi.get(mediaList)
     return response.data
+
+}
+export const getDataMediaActive=async() => {
+  
+  const response = await mediaApi.get(mediaListActive)
+  return response.data
 
 }
 

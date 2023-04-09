@@ -9,7 +9,7 @@ export const LayoutSgc = () => {
 				<Header />
 			</header>
 			
-			<main className="pt-24">
+			<main className="pt-32">
 				<Outlet />
 			</main>
 		</>

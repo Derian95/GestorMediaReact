@@ -11,7 +11,7 @@ export const ModalContainer: FC<Props> = ({children}) => {
 	showModal ? (document.body.style.overflow = 'hidden') : (document.body.style.overflow = 'auto')
 
 	return (
-		<div className={` backdrop-blur-sm fixed h-full  w-full left-0 z-50 top-0  ${showModal ? 'cont-modal' : 'modalClose'}`}>
+		<div className={` backdrop-blur-sm fixed  h-full  w-full left-0 z-50 top-0  ${showModal ? 'cont-modal' : 'modalClose'}`}>
 			{children}
 		</div>
 	)
