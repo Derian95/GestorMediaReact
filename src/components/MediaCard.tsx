@@ -49,7 +49,7 @@ export const MediaCard: FC<Props> = ({media}) => {
    
 
 	return (
-		<div className='w-full h-96 rounded-lg border-[.2px] border-[#cfcdcd]  flex flex-col overflow-hidden shadow-2xl  hover:-translate-y-1 duration-300'>
+		<div className='w-full h-96 rounded-lg border-[.2px] border-[#cfcdcd]  flex flex-col overflow-hidden shadow-2xl  hover:scale-105  duration-300'>
 			{
                 isVideo(media.location) ? 
                 ( <ReactPlayer url={basePath + media.location} muted={true} controls width={'100%'} height={'50%'} /> ) 

@@ -16,6 +16,8 @@ export const SwitchMeda:FC<Props> = ( { id, state } ) => {
 
     const changeState=async(idMedia:number) => {
         setCheck(prev=>!prev)
+   
+    
 		const response = await postChangeState(idMedia)
         console.log(response)
         if(response){
@@ -32,7 +34,7 @@ export const SwitchMeda:FC<Props> = ( { id, state } ) => {
     useEffect(() => {
 
         setCheck(state)
-    }, []);
+    }, [state]);
 
   
   return (

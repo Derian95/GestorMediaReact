@@ -3,6 +3,7 @@ import {Media} from '../interfaces'
 import useSWR from 'swr'
 import {getDataMedia, mediaList} from '../api'
 import { useState } from 'react'
+import { ListSkeleton } from './Skeleton/ListSkeleton'
 
 // export const basePath="http://localhost:801/"
 export const basePath = 'http://localhost:3005/apiGestor/'
@@ -11,7 +12,7 @@ export const MediaList = () => {
 	const {data: dataMedia, isLoading} = useSWR<Media[]>( mediaList, getDataMedia, {revalidateOnMount: true} )
 	const [searchValue, setSearchValue] = useState('');
 	if (isLoading) {
-		return <p>Carganding</p>
+		return <ListSkeleton/>
 	}
 
 	if (dataMedia?.length === 0) return <div>No se encontro registros</div>
